@@ -1,0 +1,1013 @@
+/* =========================================================
+   HARSHIN KAILAS K — MINIMAL PORTFOLIO SYSTEM
+   Replace the contents of src/App.css with this file.
+   Designed to work with the existing React/Tailwind components.
+   ========================================================= */
+
+/* ---------- Design tokens ---------- */
+
+:root {
+  color-scheme: light;
+
+  --portfolio-bg: #ffffff;
+  --portfolio-surface: #fafafa;
+  --portfolio-surface-2: #f4f4f5;
+  --portfolio-text: #18181b;
+  --portfolio-heading: #09090b;
+  --portfolio-muted: #71717a;
+  --portfolio-border: #e4e4e7;
+  --portfolio-border-strong: #d4d4d8;
+  --portfolio-hover: #f4f4f5;
+
+  --portfolio-radius: 7px;
+  --portfolio-radius-sm: 5px;
+
+  --portfolio-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.035),
+    0 4px 14px rgba(0, 0, 0, 0.035);
+
+  --portfolio-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --portfolio-bg: #09090b;
+  --portfolio-surface: #0f0f11;
+  --portfolio-surface-2: #18181b;
+  --portfolio-text: #d4d4d8;
+  --portfolio-heading: #fafafa;
+  --portfolio-muted: #a1a1aa;
+  --portfolio-border: #27272a;
+  --portfolio-border-strong: #3f3f46;
+  --portfolio-hover: #18181b;
+
+  --portfolio-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ---------- Global ---------- */
+
+html {
+  scroll-behavior: smooth;
+  background: var(--portfolio-bg);
+}
+
+body {
+  background: var(--portfolio-bg);
+  color: var(--portfolio-text);
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+::selection {
+  background: var(--portfolio-heading);
+  color: var(--portfolio-bg);
+}
+
+/* Keep the whole page quiet during theme changes. */
+body,
+.portfolio-app,
+.portfolio-app header,
+.portfolio-app main,
+.portfolio-app section,
+.portfolio-app footer,
+.portfolio-app button,
+.portfolio-app a {
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 180ms ease;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ---------- Main frame ---------- */
+
+.portfolio-app {
+  min-height: 100vh;
+  background: var(--portfolio-bg);
+  color: var(--portfolio-text);
+}
+
+.portfolio-main {
+  overflow: clip;
+}
+
+/* Existing Tailwind border utility becomes the same hairline everywhere. */
+.portfolio-main .bg-border,
+.portfolio-app .bg-border {
+  background-color: var(--portfolio-border) !important;
+}
+
+.portfolio-main .border-border,
+.portfolio-app .border-border {
+  border-color: var(--portfolio-border) !important;
+}
+
+
+/* ---------- Section headers ---------- */
+
+.portfolio-main section>.screen-line-bottom,
+.portfolio-main section>.screen-line-top {
+  border-color: var(--portfolio-border);
+}
+
+.portfolio-main section>.screen-line-bottom {
+  position: relative;
+  background: transparent;
+}
+
+.portfolio-main section>.screen-line-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--portfolio-border-strong);
+  animation: portfolio-line-in 700ms var(--portfolio-ease) forwards;
+}
+
+.portfolio-main section h2 {
+  color: var(--portfolio-heading);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.portfolio-main section>div:first-child span {
+  color: var(--portfolio-muted);
+  letter-spacing: 0.11em;
+}
+
+
+/* ---------- Quiet page entrance ---------- */
+
+.portfolio-main>* {
+  animation: portfolio-section-in 650ms var(--portfolio-ease) both;
+}
+
+.portfolio-main>*:nth-child(1) {
+  animation-delay: 40ms;
+}
+
+.portfolio-main>*:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.portfolio-main>*:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.portfolio-main>*:nth-child(4) {
+  animation-delay: 190ms;
+}
+
+.portfolio-main>*:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.portfolio-main>*:nth-child(6) {
+  animation-delay: 290ms;
+}
+
+.portfolio-main>*:nth-child(7) {
+  animation-delay: 340ms;
+}
+
+.portfolio-main>*:nth-child(8) {
+  animation-delay: 390ms;
+}
+
+
+/* ---------- Navbar ---------- */
+
+.portfolio-app>header {
+  background: color-mix(in srgb, var(--portfolio-bg) 94%, transparent) !important;
+  border-color: var(--portfolio-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.portfolio-app>header .screen-line-top,
+.portfolio-app>header .screen-line-bottom {
+  border-color: var(--portfolio-border);
+}
+
+/* HARSHIN wordmark */
+.portfolio-app>header a.group {
+  transition:
+    opacity 180ms ease,
+    transform 220ms var(--portfolio-ease);
+}
+
+.portfolio-app>header a.group:hover {
+  opacity: 0.78;
+  transform: translateY(-1px);
+}
+
+.portfolio-app>header a.group>span:first-child {
+  color: var(--portfolio-heading) !important;
+  letter-spacing: 0.08em;
+}
+
+.portfolio-app>header a.group>span:nth-child(2) {
+  width: 5px;
+  height: 5px;
+  background: var(--portfolio-heading) !important;
+  animation: portfolio-dot-pulse 3s ease-in-out infinite;
+}
+
+/* Navigation links */
+.portfolio-app>header nav button {
+  position: relative;
+  color: var(--portfolio-muted) !important;
+  transition:
+    color 160ms ease,
+    transform 180ms var(--portfolio-ease);
+}
+
+.portfolio-app>header nav button:hover {
+  color: var(--portfolio-heading) !important;
+  transform: translateY(-1px);
+}
+
+.portfolio-app>header nav button::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: -3px;
+  height: 1px;
+  background: var(--portfolio-heading);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 180ms var(--portfolio-ease);
+}
+
+.portfolio-app>header nav button:hover::after {
+  transform: scaleX(1);
+}
+
+/* Search / utility controls */
+.portfolio-app>header button {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 180ms var(--portfolio-ease),
+    box-shadow 180ms ease;
+}
+
+.portfolio-app>header button:hover {
+  transform: translateY(-1px);
+}
+
+.portfolio-app>header button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.portfolio-app>header button:focus-visible {
+  outline: 1px solid var(--portfolio-heading);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Hero / profile ---------- */
+
+.portfolio-main>header {
+  background: transparent;
+}
+
+.portfolio-main>header img {
+  transition:
+    transform 400ms var(--portfolio-ease),
+    filter 300ms ease;
+}
+
+.portfolio-main>header img:hover {
+  transform: scale(1.025);
+}
+
+.portfolio-main>header h1 {
+  color: var(--portfolio-heading) !important;
+  letter-spacing: -0.035em;
+  font-weight: 550;
+}
+
+/* Availability badge: keep the information, remove visual noise. */
+.portfolio-main>header .text-emerald-500,
+.portfolio-main>header .text-emerald-400 {
+  color: var(--portfolio-muted) !important;
+}
+
+.portfolio-main>header .bg-emerald-500\/10,
+.portfolio-main>header .border-emerald-500\/30 {
+  background: transparent !important;
+  border-color: var(--portfolio-border) !important;
+}
+
+/* Avatar switch */
+.portfolio-main>header button[role="switch"] {
+  background: var(--portfolio-surface-2) !important;
+  border-color: var(--portfolio-border) !important;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 180ms var(--portfolio-ease);
+}
+
+.portfolio-main>header button[role="switch"]:hover {
+  border-color: var(--portfolio-border-strong) !important;
+  transform: translateY(-1px);
+}
+
+.portfolio-main>header button[role="switch"]:active {
+  transform: scale(0.94);
+}
+
+.portfolio-main>header button[role="switch"] span {
+  transition:
+    left 220ms var(--portfolio-ease),
+    background-color 200ms ease;
+}
+
+
+/* Alternate avatar: keep the identity graphic monochrome. */
+.portfolio-main>header .bg-gradient-to-br {
+  background: var(--portfolio-surface-2) !important;
+  border-color: var(--portfolio-border) !important;
+}
+
+.portfolio-main>header .bg-gradient-to-br .text-blue-400 {
+  color: var(--portfolio-muted) !important;
+}
+
+.portfolio-main>header .bg-gradient-to-br>div {
+  opacity: 0.08 !important;
+  background: none !important;
+}
+
+/* ---------- Role ticker ---------- */
+
+.portfolio-main>header [class*="animate"] {
+  animation-timing-function: var(--portfolio-ease);
+}
+
+.portfolio-main>header .font-mono {
+  color: var(--portfolio-muted);
+}
+
+
+/* ---------- Primary / CTA buttons ---------- */
+
+/*
+  Applies to the existing Resume / Contact / LinkedIn / GitHub / Email
+  controls without requiring component changes.
+*/
+.portfolio-main a,
+.portfolio-main button {
+  --tap-y: 0px;
+}
+
+.portfolio-main a:not(.group),
+.portfolio-main button:not([role="switch"]) {
+  transition:
+    transform 180ms var(--portfolio-ease),
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+/* Dark filled buttons */
+.portfolio-main .bg-foreground.text-background {
+  background: var(--portfolio-heading) !important;
+  color: var(--portfolio-bg) !important;
+  border-color: var(--portfolio-heading) !important;
+  box-shadow: none !important;
+}
+
+.portfolio-main .bg-foreground.text-background:hover {
+  opacity: 1 !important;
+  transform: translateY(-1px);
+  box-shadow: var(--portfolio-shadow) !important;
+}
+
+.portfolio-main .bg-foreground.text-background:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none !important;
+}
+
+
+/* ---------- Connect ---------- */
+
+[aria-labelledby="connect-heading"] ul {
+  gap: 6px;
+}
+
+[aria-labelledby="connect-heading"] li a,
+[aria-labelledby="connect-heading"] li button {
+  min-height: 34px;
+  border-radius: var(--portfolio-radius-sm) !important;
+  box-shadow: none !important;
+  letter-spacing: -0.005em;
+}
+
+[aria-labelledby="connect-heading"] li a:hover,
+[aria-labelledby="connect-heading"] li button:hover {
+  transform: translateY(-1px);
+}
+
+[aria-labelledby="connect-heading"] li a:active,
+[aria-labelledby="connect-heading"] li button:active {
+  transform: scale(0.98);
+}
+
+[aria-labelledby="connect-heading"] li a::after,
+[aria-labelledby="connect-heading"] li button::after {
+  content: "↗";
+  margin-left: 2px;
+  opacity: 0;
+  transform: translateX(-3px);
+  transition:
+    opacity 160ms ease,
+    transform 180ms var(--portfolio-ease);
+}
+
+[aria-labelledby="connect-heading"] li a:hover::after,
+[aria-labelledby="connect-heading"] li button:hover::after {
+  opacity: 0.65;
+  transform: translateX(0);
+}
+
+
+/* ---------- About ---------- */
+
+#about ul>li {
+  transition:
+    transform 220ms var(--portfolio-ease),
+    opacity 180ms ease;
+}
+
+#about ul>li:hover {
+  transform: translateX(2px);
+}
+
+#about ul>li>span {
+  transition:
+    transform 220ms var(--portfolio-ease),
+    background-color 180ms ease;
+}
+
+#about ul>li:hover>span {
+  transform: scale(1.35);
+  background: var(--portfolio-heading) !important;
+}
+
+#about p {
+  color: var(--portfolio-text);
+}
+
+#about p span {
+  color: var(--portfolio-heading) !important;
+}
+
+
+/* ---------- Experience ---------- */
+
+#experience ul>li {
+  border-color: var(--portfolio-border) !important;
+  background: transparent !important;
+  border-radius: var(--portfolio-radius) !important;
+  box-shadow: none !important;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 220ms var(--portfolio-ease);
+}
+
+#experience ul>li:hover {
+  border-color: var(--portfolio-border-strong) !important;
+}
+
+#experience ul>li>button {
+  background: transparent !important;
+}
+
+#experience ul>li>button:hover {
+  background: var(--portfolio-surface) !important;
+}
+
+#experience ul>li>button:active {
+  transform: scale(0.995);
+}
+
+#experience ul>li>button>span:first-child {
+  border-radius: 5px !important;
+  box-shadow: none !important;
+  filter: grayscale(1);
+}
+
+#experience ul>li [class*="animate-fade"] {
+  animation:
+    portfolio-expand-in 260ms var(--portfolio-ease) both;
+}
+
+
+/* ---------- Projects ---------- */
+
+#projects .group\/card {
+  background: transparent !important;
+  border-color: var(--portfolio-border) !important;
+  border-radius: var(--portfolio-radius) !important;
+  box-shadow: none !important;
+  transition:
+    border-color 180ms ease,
+    transform 220ms var(--portfolio-ease),
+    box-shadow 220ms ease;
+}
+
+#projects .group\/card:hover {
+  border-color: var(--portfolio-border-strong) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--portfolio-shadow) !important;
+}
+
+/* Project filters */
+#projects>div:first-child button {
+  border-radius: 4px !important;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms var(--portfolio-ease);
+}
+
+#projects>div:first-child button:hover {
+  transform: translateY(-1px);
+}
+
+#projects>div:first-child button:active {
+  transform: scale(0.96);
+}
+
+/* Project visual area — remove the obvious gradient-card look. */
+#projects .group\/media {
+  background: var(--portfolio-surface) !important;
+  border-color: var(--portfolio-border) !important;
+  border-radius: var(--portfolio-radius-sm) !important;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+#projects .group\/media:hover {
+  border-color: var(--portfolio-border-strong) !important;
+  background: var(--portfolio-surface-2) !important;
+}
+
+#projects .group\/media>div[class*="size-12"] {
+  background: var(--portfolio-bg) !important;
+  border-color: var(--portfolio-border) !important;
+  border-radius: 7px !important;
+  box-shadow: none !important;
+  transition:
+    transform 240ms var(--portfolio-ease),
+    border-color 180ms ease;
+}
+
+#projects .group\/media:hover>div[class*="size-12"] {
+  transform: translateY(-2px) !important;
+}
+
+/* Make project icons monochrome */
+#projects .group\/media svg {
+  color: var(--portfolio-heading) !important;
+}
+
+
+/* ---------- Skills ---------- */
+
+#skills>div:nth-child(2) {
+  border-color: var(--portfolio-border) !important;
+}
+
+#skills>div:nth-child(2) button {
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+#skills>div:nth-child(2) button:hover {
+  transform: translateY(-1px);
+}
+
+#skills>div:nth-child(2) button:active {
+  transform: scale(0.97);
+}
+
+#skills ul button {
+  background: transparent !important;
+  border-color: var(--portfolio-border) !important;
+  color: var(--portfolio-muted) !important;
+  box-shadow: none !important;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 180ms var(--portfolio-ease);
+}
+
+#skills ul button:hover {
+  color: var(--portfolio-heading) !important;
+  border-color: var(--portfolio-border-strong) !important;
+  background: var(--portfolio-surface) !important;
+  transform: translateY(-1px);
+}
+
+#skills ul button:active {
+  transform: scale(0.97);
+}
+
+#skills ul button span:first-child {
+  background: var(--portfolio-heading) !important;
+}
+
+/* Selected skill stays obvious without bright blue. */
+#skills ul button.ring-2 {
+  background: var(--portfolio-heading) !important;
+  color: var(--portfolio-bg) !important;
+  border-color: var(--portfolio-heading) !important;
+  box-shadow: none !important;
+}
+
+
+/* ---------- Education ---------- */
+
+#education .rounded-lg,
+#education .rounded-md {
+  border-color: var(--portfolio-border) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#education .rounded-lg:hover,
+#education .rounded-md:hover {
+  border-color: var(--portfolio-border-strong) !important;
+}
+
+#education>div:nth-child(2)>div {
+  transition:
+    transform 220ms var(--portfolio-ease),
+    border-color 180ms ease;
+}
+
+#education>div:nth-child(2)>div:hover {
+  transform: translateY(-1px);
+}
+
+#education .text-blue-500,
+#education .text-blue-600,
+#education .text-blue-400,
+#education .text-emerald-500,
+#education .text-emerald-400,
+#education .text-amber-500 {
+  color: var(--portfolio-muted) !important;
+}
+
+
+/* ---------- Areas of focus ---------- */
+
+section[aria-label="Areas of focus"] {
+  padding-top: 42px !important;
+  padding-bottom: 42px !important;
+}
+
+section[aria-label="Areas of focus"] .rounded-full {
+  border-color: color-mix(in srgb, var(--portfolio-heading) 18%, transparent) !important;
+  background: transparent !important;
+  transition:
+    transform 280ms var(--portfolio-ease),
+    border-color 220ms ease,
+    background-color 220ms ease,
+    opacity 220ms ease;
+}
+
+/* Remove the four bright category colors. */
+section[aria-label="Areas of focus"] .border-blue-500,
+section[aria-label="Areas of focus"] .border-emerald-500,
+section[aria-label="Areas of focus"] .border-purple-500,
+section[aria-label="Areas of focus"] .border-amber-500 {
+  border-color: var(--portfolio-heading) !important;
+}
+
+section[aria-label="Areas of focus"] .bg-blue-500\/10,
+section[aria-label="Areas of focus"] .bg-emerald-500\/10,
+section[aria-label="Areas of focus"] .bg-purple-500\/10,
+section[aria-label="Areas of focus"] .bg-amber-500\/10 {
+  background: color-mix(in srgb, var(--portfolio-heading) 5%, transparent) !important;
+}
+
+section[aria-label="Areas of focus"] .text-blue-500,
+section[aria-label="Areas of focus"] .text-emerald-500,
+section[aria-label="Areas of focus"] .text-purple-500,
+section[aria-label="Areas of focus"] .text-amber-500 {
+  color: var(--portfolio-heading) !important;
+}
+
+section[aria-label="Areas of focus"] .rounded-full:hover {
+  border-color: var(--portfolio-heading) !important;
+  transform: scale(1.015);
+}
+
+/* Center hub */
+section[aria-label="Areas of focus"] .rounded-full [class*="font"] {
+  color: var(--portfolio-heading);
+}
+
+
+/* ---------- Footer ---------- */
+
+.portfolio-app footer {
+  color: var(--portfolio-muted);
+}
+
+.portfolio-app footer>div:first-child,
+.portfolio-app footer>div:nth-child(3) {
+  background: var(--portfolio-border) !important;
+}
+
+.portfolio-app footer .opacity-40 {
+  opacity: 0.22 !important;
+}
+
+.portfolio-app footer .fixed button {
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--portfolio-bg) 92%, transparent) !important;
+  border-color: var(--portfolio-border) !important;
+  box-shadow: var(--portfolio-shadow) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    transform 180ms var(--portfolio-ease),
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.portfolio-app footer .fixed button:hover {
+  transform: translateY(-2px);
+  border-color: var(--portfolio-border-strong) !important;
+}
+
+.portfolio-app footer .fixed button:active {
+  transform: scale(0.97);
+}
+
+
+/* ---------- Command palette ---------- */
+
+.modal-backdrop {
+  background: color-mix(in srgb, var(--portfolio-bg) 78%, transparent) !important;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.portfolio-app [class*="max-w-lg"][class*="shadow-2xl"] {
+  border-color: var(--portfolio-border) !important;
+  background: var(--portfolio-bg) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.16) !important;
+  border-radius: 9px !important;
+  animation: portfolio-modal-in 220ms var(--portfolio-ease) both;
+}
+
+.portfolio-app [class*="max-w-lg"][class*="shadow-2xl"] button:hover {
+  background: var(--portfolio-surface) !important;
+}
+
+.portfolio-app [class*="max-w-lg"][class*="shadow-2xl"] button:active {
+  transform: scale(0.985);
+}
+
+
+/* ---------- Project / Resume modals ---------- */
+
+.portfolio-app [class*="max-w-2xl"][class*="shadow-2xl"],
+.portfolio-app [class*="max-w-lg"][class*="shadow-2xl"] {
+  border-color: var(--portfolio-border) !important;
+}
+
+.portfolio-app [class*="max-w-2xl"][class*="shadow-2xl"] {
+  border-radius: 9px !important;
+  background: var(--portfolio-bg) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.16) !important;
+  animation: portfolio-modal-in 220ms var(--portfolio-ease) both;
+}
+
+.portfolio-app [class*="max-w-2xl"][class*="shadow-2xl"] button:hover,
+.portfolio-app [class*="max-w-lg"][class*="shadow-2xl"] button:hover {
+  transform: translateY(-1px);
+}
+
+.portfolio-app [class*="max-w-2xl"][class*="shadow-2xl"] button:active,
+.portfolio-app [class*="max-w-lg"][class*="shadow-2xl"] button:active {
+  transform: scale(0.97);
+}
+
+
+/* ---------- Toast ---------- */
+
+.portfolio-app .fixed.bottom-6.right-6>div {
+  background: var(--portfolio-heading) !important;
+  color: var(--portfolio-bg) !important;
+  border-color: var(--portfolio-heading) !important;
+  border-radius: 6px !important;
+  box-shadow: var(--portfolio-shadow) !important;
+  animation: portfolio-toast-in 220ms var(--portfolio-ease) both;
+}
+
+
+/* ---------- Interactive hero canvas ---------- */
+
+.portfolio-main canvas {
+  opacity: 0.55;
+  transition: opacity 300ms ease;
+}
+
+.portfolio-main canvas:hover {
+  opacity: 0.75;
+}
+
+
+/* ---------- Hairline side frame ---------- */
+
+.portfolio-app>div>div>div[class*="border-r"],
+.portfolio-app>div>div>div[class*="border-l"] {
+  border-color: var(--portfolio-border) !important;
+}
+
+
+/* ---------- Keyboard focus ---------- */
+
+.portfolio-app :focus-visible {
+  outline: 1px solid var(--portfolio-heading);
+  outline-offset: 3px;
+}
+
+.portfolio-app input:focus-visible {
+  outline: none;
+}
+
+
+/* ---------- Scrollbar ---------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--portfolio-border-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--portfolio-border-strong);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--portfolio-muted);
+}
+
+
+/* ---------- Keyframes ---------- */
+
+@keyframes portfolio-section-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portfolio-line-in {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes portfolio-expand-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portfolio-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes portfolio-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portfolio-dot-pulse {
+
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 767px) {
+  .portfolio-main section>.screen-line-bottom {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
+  .portfolio-main section h2 {
+    font-size: 1.05rem;
+  }
+
+  #projects .group\/card:hover {
+    transform: none;
+    box-shadow: none !important;
+  }
+
+  section[aria-label="Areas of focus"] {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+}
+
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
